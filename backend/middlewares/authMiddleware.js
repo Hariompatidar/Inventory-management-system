@@ -9,15 +9,10 @@ exports.auth = async (req, res, next) => {
 
     try {
         //extract token 
-        const token = req.cookie.token || req.body.token ||  req.headers?.authorization.split(' ')[1];
-        if (!token) {
-            return res.status(401).json({
-                success: false,
-                message: 'token is missing '
-            })
-
-        }
-     console.log(token)
+        const token =req.headers?.authorization.split(' ')[1];
+        console.log(token)
+        
+      
         const decode = await jwt.verify(token, process.env.JWT_SECRET);
         console.log(decode);
         const isUser = await User.findOne({_id : decode.id}) ;
@@ -28,12 +23,13 @@ exports.auth = async (req, res, next) => {
             })
         }
         req.user = decode;
+        
         next();
     } catch (e) {
         console.log(e.message);
         return res.status(500).json({
             success: false,
-            message: 'error in token handling',
+            message: 'Can not find token',
             error: e.message
         })
     }

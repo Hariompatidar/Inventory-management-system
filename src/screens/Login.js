@@ -1,24 +1,26 @@
-import React, {  useRef } from "react";
+import React, { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import {toast  , ToastContainer} from "react-toastify"
+import { toast } from "react-toastify"
+import { useDispatch } from "react-redux";
+import { login } from "../redux/slices/loginSlice";
 
 
-function Login(){
-
+function Login() {
+  const dispatch = useDispatch() ; 
   const navigate = useNavigate();
   const formRef = useRef();
 
 
   const submitHandler = async (e) => {
     e.preventDefault();
-  
+
     const userObj = {
       email: formRef.current.email.value,
       password: formRef.current.password.value,
     };
 
-   console.log(userObj)  ; 
+    console.log(userObj);
     await axios({
       method: "post",
       url: "http://localhost:5000/api/user/login",
@@ -28,14 +30,14 @@ function Login(){
       .then((response) => {
         toast.success("Login successfully");
         const userInfo = response?.data.user[0];
-        console.log(userInfo) ; 
+        dispatch(login()) ; 
         localStorage.setItem("userInfo", JSON.stringify(userInfo));
         localStorage.setItem("authToken", response?.data?.token);
         navigate("/");
       })
       .catch((error) => {
-        toast.warn(error.response.data.message );
-       });
+        toast.warn(error.response.data.message);
+      });
   };
   return (
     <section className="bg-[var(--background)]">

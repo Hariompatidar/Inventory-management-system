@@ -6,7 +6,7 @@ exports.createProduct = async (req, res) => {
         const { name, description, price, stock } = req.body;
         let imageUrl ="" ; 
         
-        const image = req.files.file ; 
+        const image = req.body.image ; 
         
 
         if(!name || !description || !stock || !price ) {
@@ -26,16 +26,10 @@ exports.createProduct = async (req, res) => {
         }
 
         if(image){
-        const supportedImage = ["jpg" , "jpeg" , "png"]; 
-        const imageType = image.name.split(".")[1] ; 
-        if(! supportedImage.includes(imageType)){
-            return res.status(402).json({
-                success : false  , 
-                message : "Image type is not supported "
-            })
-        }
-
-        const response = await  uploadToCloudinary(image , "Inventory") ; 
+        
+        do{
+        var response = await  uploadToCloudinary(image , "Inventory") ; 
+            }while( !response)
         imageUrl = response.secure_url 
          
 }
