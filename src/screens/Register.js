@@ -40,7 +40,7 @@ function Register() {
   };
 
   return (
-    <section className="bg-[var(--background)] md:h-[80vh]">
+    <section className="bg-[var(--background)] h-screen">
       <div className="flex flex-col items-center justify-center md:h-[100%] px-6 py-8 mx-auto  lg:py-0 ">
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -123,7 +123,7 @@ function Register() {
 
               <button
                 type="submit"
-                className="w-full text-[var(--textColor)] bg-[var(--bgColor)] hover:scale-[1.025] font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                id= "button"
               >
                 Create an account
               </button>

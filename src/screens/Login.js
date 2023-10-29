@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify"
 import { useDispatch } from "react-redux";
-import { login } from "../redux/slices/loginSlice";
+import { setLogin } from "../redux/slices/loginSlice";
 
 
 function Login() {
@@ -30,7 +30,7 @@ function Login() {
       .then((response) => {
         toast.success("Login successfully");
         const userInfo = response?.data.user[0];
-        dispatch(login()) ; 
+        dispatch(setLogin(true)) ; 
         localStorage.setItem("userInfo", JSON.stringify(userInfo));
         localStorage.setItem("authToken", response?.data?.token);
         navigate("/");
@@ -41,7 +41,7 @@ function Login() {
   };
   return (
     <section className="bg-[var(--background)]">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto sm:h-screen md:h-[88vh] ">
+      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto sm:h-screen  ">
         <div className="w-full bg-white rounded-lg shadow sm:max-w-md ">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
@@ -50,7 +50,7 @@ function Login() {
             <form
               ref={formRef}
               className="space-y-4 md:space-y-6"
-              action="#"
+              
               onSubmit={submitHandler}
             >
               <div>
@@ -85,13 +85,15 @@ function Login() {
                   required=""
                 />
               </div>
-
+<div>
               <button
+              id="button"
                 type="submit"
-                className="w-full text-[var(--textColor)] bg-[var(--bgColor)] hover:scale-[1.025]  py-2 rounded-lg"
+                
               >
                 Sign in
               </button>
+              </div>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{" "}
                 <Link

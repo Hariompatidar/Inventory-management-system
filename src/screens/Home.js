@@ -1,14 +1,14 @@
 import React from "react";
-import Banner from "../images/Banner.jpg";
+import Banner from "../images/Banner.png";
 function Home() {
   return (
-    <div className=" w-[100vw] min-h-[88vh] grid bg-[varr(--bgColor)]  md:grid-cols-2 ">
-      <div className="bg-transparent flex justify-center items-center">
-        <img src={Banner} alt="Inventory Management" className="w-[80%]"></img>
+    <div className="h-full bg-[var(--bgColor)] ">
+      <div className=" h-[50vh] bg-transparent flex justify-center items-center">
+        <img src={Banner} alt="Inventory Management" className="w-[80%] h-full object-contain"></img>
       </div>
       <div className="bg-transparent text-[var(--textColor)] p-10  text-center md:text-left md:py-[200px] ">
         <h1 className="text-[2.5rem] ">Inventory Management</h1>
-        <p className="text-[1.5rem] ">
+        <p className="text-[1.5rem] text-wrap ">
           An inventory management system (or inventory system) is the process by
           which you track your goods throughout your entire supply chain, from
           purchasing to production to end sales. It governs how you approach

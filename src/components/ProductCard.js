@@ -7,8 +7,12 @@ function ProductCard({ product }) {
     const navigate = useNavigate();
     const inputRef = useRef();
     const addToStockHandler = async (e) => {
+
+
         e.preventDefault();
+        if(inputRef.current.value === "0" ){ return toast.warn("Please enter a valid value")}
         const token = localStorage.getItem("authToken");
+
         await axios({
             method: "post",
             url: "http://localhost:5000/api/product/addstock",
@@ -31,40 +35,18 @@ function ProductCard({ product }) {
     };
 
 
-    const sellStockHandler = async(e)=>{
-        e.preventDefault();
-        const token = localStorage.getItem("authToken");
-        await axios({
-            method: "post",
-            url: "http://localhost:5000/api/product/sellstock",
-            headers: {
-                "Content-Type": "application/json",
-                authorization: `Bearer ${token}`,
-            },
-            data: {
-                id: product._id,
-                productsSold: inputRef.current.value,
-            },
-        })
-            .then(() => {
-                toast.success("Stock added successfully");
-                navigate("/");
-            })
-            .catch((error) => {
-                toast.warn(error.response.data.message);
-            });
-    }
+    
     return (
-        <div className="mt-20  bg-var(--bgColor)  text-white grid md:grid-cols-2 mb-10">
+        <div className="  bg-white  text-black grid md:grid-cols-2 rounded-[20px]">
             <div className="overflow-hidden bg-cover bg-no-repeat ">
                 <img
-                    className="rounded-t-sm h-[500px] w-[100%] object-cover"
+                    className="rounded-t-sm  w-[100%] object-cover p-10"
                     src={product.image}
                     alt=""
                 />
             </div>
 
-            <div className="flex flex-col text-center md:text-left   md:pl-10 md:pt-10 gap-10">
+            <div className="flex flex-col text-center md:text-left   md:pl-10 md:pt-10 gap-10 bg-black m-14 rounded-[20px] text-white p-10">
                 <p className="text-[2rem] font-bold mt-10">{product.name}</p>
                 <div className="flex flex-col gap-5 ">
                     <p className="text-lg text-white dark:text-neutral-200">
@@ -92,7 +74,7 @@ function ProductCard({ product }) {
                         </div>
                     </div>
 
-                    <div className="container w-100">
+                    <div className="container w-100 flex items-center">
                         <input
                             ref={inputRef}
                             type="number"
@@ -100,18 +82,22 @@ function ProductCard({ product }) {
                             defaultValue="0"
                             className=" py-2 m-2   bg-[var(--textColor)] text-black outline-none border-none rounded-md p-2"
                         />
+                        <div className="w-full">
                         <button
-                            className="px-5 py-2 bg-[var(--textColor)] text-black rounded-xl mr-3"
+                            id="button"
                             onClick={addToStockHandler}
                         >
                             Add
                         </button>
-                        <button className="px-5 py-2 bg-[var(--textColor)] text-black rounded-xl" 
-                                onClick={sellStockHandler}
+                        </div>
+                       
+                    </div>
+                      <hr className="-m-3"></hr>
+                    <button id="button" 
+                                onClick={()=>navigate('/sellstock')}
                         >
                             Sell
                         </button>
-                    </div>
                 </div>
             </div>
         </div>

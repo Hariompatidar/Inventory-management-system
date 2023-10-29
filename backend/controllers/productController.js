@@ -6,7 +6,8 @@ exports.createProduct = async (req, res) => {
         const { name, description, price, stock } = req.body;
         let imageUrl ="" ; 
         
-        const image = req.body.image ; 
+        console.log(name , description , price , stock ) ;
+        const image = req.files.image ; 
         
 
         if(!name || !description || !stock || !price ) {
@@ -24,13 +25,14 @@ exports.createProduct = async (req, res) => {
                 message: "Product already exist",
             });
         }
-
+ console.log(image) ; 
         if(image){
         
         do{
         var response = await  uploadToCloudinary(image , "Inventory") ; 
-            }while( !response)
         imageUrl = response.secure_url 
+            }while( !response)
+        
          
 }
         
@@ -40,7 +42,7 @@ exports.createProduct = async (req, res) => {
         res.status(200).json({
             success: true,
             message: "Product inserted successfully",
-            data: data
+            data: "data"
         });
     } catch (e) {
         console.log(e.message);
@@ -91,33 +93,6 @@ exports.getProductDetails = async(req , res)=>{
 }
 
 
-exports.sellProduct = async(req , res)=>{
-    try{
-    const {id , productsSold } = req.body ; 
-    
-    const response = await Product.findById(id) ;
-    
-
-    if( !response){return res.status(402).json({success : false , message : "Product can not be found"})} 
-    else if( response.quantityLeft === 0 ){ return res.status(402).json({success : false , message : "Stock alread out of stock"})} 
-
-    const newData = await Product.findByIdAndUpdate(id , {$inc : {soldQuantity :productsSold  , quantityLeft : -productsSold } } , {new : true })
-    console.log(newData) ;
-
-    res.status(200).json({
-        success : true  , 
-        message : "Successfully sold " , 
-        data : newData  
-    })
-}catch(e){
-    console.log(e.message) ;
-    return res.status(500).json({
-        success : false , 
-        message : "Unable to sell product" , 
-        error : e.message
-    })
-}
-}
 
 exports.addStock = async(req , res)=>{
     try{

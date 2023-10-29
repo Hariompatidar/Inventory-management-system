@@ -119,4 +119,26 @@ exports.loginUser = async (req, res) => {
 };
 
 
+exports.getAllUser = async (req , res )=>{
+    try{
+
+        const response = await User.find({}) ; 
+
+        return res.status(200).json({
+            success : true , 
+            message : "Successfully fetched all users" , 
+            data : response 
+        })
+
+    }catch(e){
+        console.log(e.message) ; 
+        res.status(500).json({
+            success : false , 
+            message : "Failed to load all users" ,
+            error : e.message 
+        })
+    }
+}
+
+
 

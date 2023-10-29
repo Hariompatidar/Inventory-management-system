@@ -5,6 +5,7 @@ const cors = require('cors') ;
 const dbConnect = require('./config/ConnectDb') ;
 const userRoutes = require('./routes/userRoutes') ; 
 const productRoutes = require("./routes/productRoutes") ; 
+const saleRoutes = require("./routes/saleRoutes")
 const cloudinaryConnect = require('./config/CloudinaryConnect')
 const fileUpload = require('express-fileupload')
 
@@ -19,6 +20,7 @@ app.use(express.urlencoded({extended : false })) ;
 app.use(cors()) ;
 app.use('/api/user' , userRoutes) ; 
 app.use("/api/product" , productRoutes) ; 
+app.use("/api/sell" , saleRoutes) ; 
 
 app.get('/' , (req , res)=> {res.send("Hello")}) ;
 app.listen(PORT , ()=>{console.log(`Server started successfully at ${PORT}`)}) ;  

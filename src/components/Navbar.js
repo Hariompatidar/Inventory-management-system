@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../images/Logo.png";
 import { useDispatch , useSelector } from "react-redux";
-import { logout , isLoggedIn } from "../redux/slices/loginSlice";
+import { setLogin, isLoggedIn } from "../redux/slices/loginSlice";
 
 
 
@@ -47,7 +47,7 @@ function Navbar() {
             <div className="flex flex-row gap-8 font-medium  ">
              
               <Link
-              onClick={()=>{ dispatch(logout()) ;localStorage.removeItem('authToken')  ;   localStorage.removeItem('userInfo') }}
+              onClick={()=>{ dispatch(setLogin(false)) ;localStorage.removeItem('authToken')  ;   localStorage.removeItem('userInfo') }}
                 to="/"
                 className="btn  bg-red-700 text-white block py-1  px-2 rounded-sm  hover:scale-105 "
               >

@@ -26,25 +26,45 @@ function ProductTable() {
       toast.warn(e.response.data.message);
     } 
   }
-
+const customStyles = {
+  rows:{
+    style :{
+     fontSize : "1rem" , 
+     }} ,
+     headCells : {
+      style :{
+        fontSize : "1.5rem" , 
+        fontWeight : "800" , 
+        backgroundColor : "black" , 
+        color : "white"
+      } 
+     } , 
+     cells:{
+      style :{
+        width : "fit-content"
+      }
+     }
+  
+}
   useEffect(()=>{getProducts(); } , [] )
   
  
   const columns = [
     {
       name: "Index",
-      selector: (row , index)=> index+1  },
-      {
-
-        name : "Image" , 
-        selector : (row) => <img src={row.image}  style={{padding:"10px" , objectFit :"contain", height:'60px' ,width:'60px'}} alt=''></img>
-      } , 
+      selector: (row , index)=> index+1  , 
+      maxWidth : "50px"
+     },
+     
+     
     {
       name: "Product",
-      selector: (row)=> row.name    },
+      selector: (row)=> <div className='flex items-center gap-5'><img src={row.image} alt=" " className='h-[60px] w-[60px] py-2 object-cover' />{row.name}</div> ,
+         },
     {
       name: "Price",
-      selector: (row)=> row.price  },
+      selector: (row)=> row.price  , 
+    maxWidth : "60px" },
     {
       name: "Quantities Left",
       selector: (row)=> row.quantityLeft  },
@@ -58,14 +78,14 @@ function ProductTable() {
       } , 
       {
         name : "Actions" , 
-        cell : (row)=> <div><button id='btn' onClick={()=>{dispatch(setSelectedProduct(row)) ; navigate('/info')}}>Info</button></div>
+        cell : (row)=> <div><button id="button" onClick={()=>{dispatch(setSelectedProduct(row)) ; navigate('/info')}}>Info</button></div>
       }
   ] ; 
    
   
   return (
-    <div className=' sm:p-10 md:p-0  mb-[60px]'>
-    <DataTable title="Items in Inventory" columns={columns} data={allProducts} pagination fixedHeader fixedHeaderScrollHeight='700px' highlightOnHover responsive />
+    <div className=' w-full h-screen  my-auto sm:p-10 md:p-0 '>
+    <DataTable  columns={columns} data={allProducts} pagination paginationPerPage="13" fixedHeader fixedHeaderScrollHeight='1000px' highlightOnHover responsive  theme= 'dark' customStyles={customStyles} />
     </div>
   )
 }

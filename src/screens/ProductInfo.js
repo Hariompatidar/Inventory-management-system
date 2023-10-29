@@ -8,7 +8,7 @@ function ProductInfo() {
     console.log(product)
     
   return (
-    <div className='w-[100vw] md:w-[75vw] min-h-[88vh] mx-auto flex flex-col items-center gap-10 text-[var(--textColor)]'>
+    <div className='w-[100vw] md:w-[75vw] h-screen  mx-auto flex flex-col justify-center items-center gap-10 text-[var(--textColor)]'>
         <ProductCard product={product} />
     </div>
   )
