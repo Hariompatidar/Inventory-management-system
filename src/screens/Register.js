@@ -32,7 +32,7 @@ function Register() {
     })
       .then((response) => {
         toast.success("Registered successfully");
-        navigate("/login");
+        navigate("/");
       })
       .catch((error) => {
         toast.warn(error.response.data.message);

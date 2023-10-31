@@ -27,11 +27,11 @@ function CreateStock() {
             headers: { "Content-Type": "multipart/form-data"  , authorization : `Bearer ${token}`},
           })
             .then(() => {
-              toast.success("Registered successfully");
+              toast.success("Created successfully");
               navigate("/");
             })
             .catch((error) => {
-            //   toast.warn(error.response.data.message);
+              toast.warn(error.response.data.message);
             });
 
     }
@@ -47,7 +47,7 @@ function CreateStock() {
               ref={formRef}
               onSubmit={submitHandler}
               className="space-y-4 md:space-y-6"
-              enctype="multipart/form-data"
+              
               
             >
              

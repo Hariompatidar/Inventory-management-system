@@ -40,13 +40,22 @@ exports.auth = async (req, res, next) => {
 exports.isSalesman = async (req, res, next) => {
 
     try {
-         const role = req.body.role ; 
-         if( role !== 'Salesman'){
+        const token =req.headers?.authorization.split(' ')[1];
+        
+        
+      
+        const decode = await jwt.verify(token, process.env.JWT_SECRET);
+        console.log(decode);
+        
+        if(decode.role !== 'Salesman'){
             return res.status(401).json({
-                success : false ,
-                message : 'This route is for Salesman only '
+                success : false , 
+                message : "This route is for admin only "
             })
-         }
+        }
+
+
+       
          next() ; 
     }
     catch (e) {
@@ -65,13 +74,20 @@ exports.isSalesman = async (req, res, next) => {
 exports.isAdmin = async (req, res, next) => {
 
     try {
-         const role = req.body.role ; 
-         if( role !== 'Admin'){
+        const token =req.headers?.authorization.split(' ')[1];
+        
+        
+      
+        const decode = await jwt.verify(token, process.env.JWT_SECRET);
+        console.log(decode);
+        
+        if(decode.role !== 'Admin'){
             return res.status(401).json({
-                success : false ,
-                message : 'This route is for Admin only '
+                success : false , 
+                message : "This route is for admin only "
             })
-         }
+        }
+
          next() ; 
     }
     catch (e) {

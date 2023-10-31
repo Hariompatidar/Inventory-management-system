@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../redux/slices/loginSlice";
-import { FaRocket } from "react-icons/fa6";
+import { FaRocket  , FaRightFromBracket , FaRightToBracket  , FaRegChartBar, FaSkull , FaPlus , FaPerson} from "react-icons/fa6";
 
 const App = () => {
     const [open, setOpen] = useState(true);
@@ -22,11 +22,13 @@ const App = () => {
 
             <div>
                 <div className="flex flex-col gap-x-4 items-center">
+                <Link to='/'>
                     <img alt=""
                         src="https://www.cliksoftware.com/wp-content/uploads/2022/05/stock-control_clik-900x600.png"
                         className={`cursor-pointer duration-500 ${open && "rotate-[360deg]"
                             }`}
                     />
+                </Link>
                     <h1
                         className={` origin-left font-medium text-[1.5rem] duration-200 ${!open && "scale-0"
                             }`}
@@ -45,22 +47,24 @@ const App = () => {
                             Home
                         </span>
                     </Link>
-                    <Link to='/'
+
+                    <Link to='/dashboard'
 
                         className={`flex  mt-2 rounded-md p-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4 
               `}
                     >
-                        <FaHome />
+                        <FaRegChartBar/>
                         <span className={`${!open && "hidden"} origin-left duration-200`}>
                             Dashboard
                         </span>
                     </Link>
+
                     <Link to='/register'
 
                         className={`flex  mt-2 rounded-md p-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4 
               `}
                     >
-                        <FaHome />
+                        <FaPerson />
                         <span className={`${!open && "hidden"} origin-left duration-200`}>
                             Register New User
                         </span>
@@ -71,17 +75,18 @@ const App = () => {
                         className={`flex  mt-2 rounded-md p-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4 
               `}
                     >
-                        <FaHome />
+                        <FaPlus />
                         <span className={`${!open && "hidden"} origin-left duration-200`}>
                             Create a Stock
                         </span>
                     </Link>
-                    <Link to='/'
+
+                    <Link to='/allusers'
 
                         className={`flex  mt-2 rounded-md p-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4 
               `}
                     >
-                        <FaHome />
+                        <FaSkull />
                         <span className={`${!open && "hidden"} origin-left duration-200`}>
                             All Users
                         </span>
@@ -98,12 +103,12 @@ const App = () => {
                             Home
                         </span>
                     </Link>
-                    <Link to='/'
+                    <Link to='/dashboard'
 
                         className={`flex  mt-2 rounded-md p-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4 
               `}
                     >
-                        <FaHome />
+                        <FaRegChartBar />
                         <span className={`${!open && "hidden"} origin-left duration-200`}>
                             Dashboard
                         </span>
@@ -124,9 +129,9 @@ const App = () => {
                 <div className="pb-6">
                     <Link to={userInfo ? '/' : '/login'}
                         onClick={() => { dispatch(setLogin(false)); localStorage.removeItem('authToken'); localStorage.removeItem('userInfo') }}
-                        className={`flex  mt-2 rounded-md p-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4         `}
+                        className={`flex  mb-8 rounded-md py-2 px-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4         `}
                     >
-                        <FaHome />
+                        { !userInfo ? <FaRightToBracket /> : <FaRightFromBracket />}
                         <span className={`${!open && "hidden"} origin-left duration-200`}>
                             {userInfo ? "Logout" : "Login"}
                         </span>

@@ -19,6 +19,24 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.del::before{
+  background-color: red !important;
+}
+
+.del{
+  color : white !important ;
+  outline: 2px solid red !important;
+}
+
+.del:hover{
+
+  color: #ffffff;
+  transform: scale(1.05);
+  outline: 2px solid red  !important;
+  box-shadow: 4px 5px 17px -4px #268391;
+  
+}
+
 #button {
   width : 100% ; 
   padding: 0.5em 2em;

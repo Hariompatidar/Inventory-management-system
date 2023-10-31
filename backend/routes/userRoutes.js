@@ -1,12 +1,12 @@
 const express = require('express') ;
 const router = express.Router() ; 
-const {registerUser ,  loginUser, getAllUser} = require('../controllers/userController') ;
+const {registerUser ,  loginUser, getAllUser , getUsersWithTotalSales} = require('../controllers/userController') ;
 const {isAdmin} = require('../middlewares/authMiddleware')
 
 
 router.post("/register" , isAdmin ,registerUser  ) ;
 router.post("/login" , loginUser) ; 
-router.get('/' , isAdmin , getAllUser) ; 
+router.get('/' , isAdmin , getUsersWithTotalSales) ; 
 
 
 

@@ -11,6 +11,7 @@ function SellStock() {
     const navigate = useNavigate();
     const formRef = useRef();
     const submitHandler = async (e) => {
+        if(formRef.current.sold.value === '0'){ return toast.warn("Enter a valid value")}
         e.preventDefault();
         const saleObj = {
             id : product._id , 
@@ -76,6 +77,7 @@ function SellStock() {
                                 </label>
                                 <input
                                     type="number"
+                                    min="0"
                                     name="sold"
                                     id="sold"
                                     placeholder="Enter a number"

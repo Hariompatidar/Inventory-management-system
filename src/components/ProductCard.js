@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 function ProductCard({ product }) {
     const navigate = useNavigate();
     const inputRef = useRef();
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"))  ;
     const addToStockHandler = async (e) => {
 
 
@@ -33,12 +34,35 @@ function ProductCard({ product }) {
                 toast.warn(error.response.data.message);
             });
     };
+    const deleteHandler = async(e)=>{
+        e.preventDefault() ;
+        const token = localStorage.getItem("authToken");
 
+        await axios({
+            method: "post",
+            url: "http://localhost:5000/api/product/deletestock",
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`,
+            },
+            data: {
+                id: product._id,
+               
+            },
+        })
+            .then(() => {
+                toast.success("Stock deleted successfully");
+                navigate("/");
+            })
+            .catch((error) => {
+                toast.warn(error.response.data.message);
+            });
+    }
 
     
     return (
-        <div className="  bg-white  text-black grid md:grid-cols-2 rounded-[20px]">
-            <div className="overflow-hidden bg-cover bg-no-repeat ">
+        <div className="  bg-[#0189FF]  text-black grid md:grid-cols-2 rounded-[20px] ">
+            <div className="overflow-hidden bg-cover bg-no-repeat flex items-center ">
                 <img
                     className="rounded-t-sm  w-[100%] object-cover p-10"
                     src={product.image}
@@ -46,7 +70,7 @@ function ProductCard({ product }) {
                 />
             </div>
 
-            <div className="flex flex-col text-center md:text-left   md:pl-10 md:pt-10 gap-10 bg-black m-14 rounded-[20px] text-white p-10">
+            <div className="flex flex-col text-center md:text-left   md:pl-10 md:pt-10 gap-10 bg-black m-14 rounded-[20px] text-white p-10 ">
                 <p className="text-[2rem] font-bold mt-10">{product.name}</p>
                 <div className="flex flex-col gap-5 ">
                     <p className="text-lg text-white dark:text-neutral-200">
@@ -60,11 +84,11 @@ function ProductCard({ product }) {
                         </div>
                         <div className=" text-lg  flex justify-between mb-2">
                             <span>Left in stock</span>{" "}
-                            <span className="font-bold">{product.quantityLeft}</span>
+                            <span className="font-bold">{product.quantityLeft} out of {product.stock}</span>
                         </div>
                         <div className=" text-lg  flex justify-between mb-2">
                             <span>Quantity sold</span>{" "}
-                            <span className="font-bold">{product.soldQuantity}</span>
+                            <span className="font-bold">{product.soldQuantity} out of {product.stock}</span>
                         </div>
                         <div className=" text-lg  flex justify-between mb-2">
                             <span>Total Value</span>{" "}
@@ -98,7 +122,13 @@ function ProductCard({ product }) {
                         >
                             Sell
                         </button>
-                </div>
+{ userInfo.role === 'Admin' ? 
+                        <button id="button" className="del" 
+                                onClick={deleteHandler}
+                        >
+                            Delete
+                        </button>    : ""
+}                </div>
             </div>
         </div>
     );

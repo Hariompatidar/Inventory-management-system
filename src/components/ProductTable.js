@@ -30,6 +30,7 @@ const customStyles = {
   rows:{
     style :{
      fontSize : "1rem" , 
+     textAlign: "center"
      }} ,
      headCells : {
       style :{
@@ -41,7 +42,8 @@ const customStyles = {
      } , 
      cells:{
       style :{
-        width : "fit-content"
+        width : "fit-content" , 
+        textAlign : "center"
       }
      }
   
@@ -67,14 +69,17 @@ const customStyles = {
     maxWidth : "60px" },
     {
       name: "Quantities Left",
-      selector: (row)=> row.quantityLeft  },
+      selector: (row)=> row.quantityLeft  ,
+      },
       {
-        name : "Items sold" , 
-        selector : (row)=> row.soldQuantity 
+        name : "Sold" , 
+        selector : (row)=> row.soldQuantity  , 
+        maxWidth : "100px"
       } , 
       {
         name : "Value" , 
-        selector : (row)=> row.price * row.quantityLeft 
+        selector : (row)=> row.price * row.quantityLeft  ,
+        maxWidth : "80px"
       } , 
       {
         name : "Actions" , 

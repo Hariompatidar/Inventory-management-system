@@ -121,3 +121,29 @@ exports.addStock = async(req , res)=>{
         })
     }
 }
+
+exports.deleteStock = async(req  ,res)=>{
+    try{
+          const {id} = req.body ; 
+          const response = await Product.findById(id) ; 
+          if(!response){
+            return res.status(400).json({
+                success : false , 
+                message : "Stock not present"
+            })
+          }
+
+           await Product.findByIdAndDelete(id) ; 
+           return res.json({
+            success: true , 
+            message : "Stock deleted successfully"
+           })
+
+    }
+    catch(e){
+        return res.status(500).json({
+            sucess : false , 
+            message : "Unable to delete stock"
+        })
+    }
+}
