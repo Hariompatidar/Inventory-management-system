@@ -8,11 +8,12 @@ import ProductInfo from './screens/ProductInfo'
 import { useSelector, useDispatch } from 'react-redux'
 import { isLoggedIn, setLogin } from './redux/slices/loginSlice'
 import CreateStock from './screens/CreateStock'
-// import Sidebar from './components/Sidebar/Sidebar'
-import Nav from './components/Nav'
 import SellStock from './screens/SellStock'
 import AllUsers from './screens/AllUsers'
 import Dashboard from './screens/Dashboard'
+import Header from './components/Header'
+import Sidebar from './components/Sidebar'
+// import { loading, toggleLoading } from './redux/slices/loadingSlice'
 
 
 function App() {
@@ -20,18 +21,22 @@ function App() {
   const login = useSelector(isLoggedIn)
   const dispatch = useDispatch();
 
-  useEffect(() => { if (localStorage.getItem('authToken')) { dispatch(setLogin(true)) } }, [])
+  useEffect(() => { ; if (localStorage.getItem('authToken')) { dispatch(setLogin(true)) } })
 
+
+  const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
+
+  const OpenSidebar = () => {
+    setOpenSidebarToggle(!openSidebarToggle)
+  }
 
 
 
   return (
-
-    <div className='flex'>
-      <Nav />
-    
-    
-      <div className='flex-auto'>
+    <div className='grid-container'>
+      <Header OpenSidebar={OpenSidebar} />
+      <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} />
+      <div className='main-container'>
         <Routes>
           <Route exact path='/' element={login ? <Inventory /> : <Home />} />
           <Route path='/login' element={<Login />} />
@@ -43,9 +48,16 @@ function App() {
           <Route path='/dashboard' element={<Dashboard />} />
 
 
-
         </Routes>
       </div>
+
+
+      {/* <Nav />
+    
+    
+      <div className='flex-auto'>
+        
+      </div> */}
     </div>
 
   )

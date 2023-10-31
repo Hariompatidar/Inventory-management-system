@@ -6,19 +6,19 @@ import { useSelector } from 'react-redux';
 import { selectedProduct } from '../redux/slices/productSlice';
 
 function SellStock() {
-    const {product} = useSelector(selectedProduct) ; 
-    
+    const { product } = useSelector(selectedProduct);
+
     const navigate = useNavigate();
     const formRef = useRef();
     const submitHandler = async (e) => {
-        if(formRef.current.sold.value === '0'){ return toast.warn("Enter a valid value")}
+        if (formRef.current.sold.value === '0') { return toast.warn("Enter a valid value") }
         e.preventDefault();
         const saleObj = {
-            id : product._id , 
+            id: product._id,
             buyer: formRef.current.buyer.value,
             productsSold: formRef.current.sold.value
         };
-        
+
 
         const token = localStorage.getItem('authToken')
         await axios({

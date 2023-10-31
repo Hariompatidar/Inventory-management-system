@@ -27,11 +27,12 @@ exports.createProduct = async (req, res) => {
         }
  console.log(image) ; 
         if(image){
-        
+        let i = 0 ; 
         do{
         var response = await  uploadToCloudinary(image , "Inventory") ; 
-        imageUrl = response.secure_url 
-            }while( !response)
+        imageUrl = response?.secure_url  ;
+        i++ ; 
+            }while( !response && i<50)
         
          
 }
@@ -144,6 +145,33 @@ exports.deleteStock = async(req  ,res)=>{
         return res.status(500).json({
             sucess : false , 
             message : "Unable to delete stock"
+        })
+    }
+}
+
+
+exports.getDashboardData = async(req ,res)=>{
+    try{
+        let products = await Product.find({}) ;
+        let totalStock = 0; 
+        let inStock = 0 ;
+        let outOfStock = 0 ; 
+        let sold = 0 ; 
+         for(var product of products){
+               inStock += product.quantityLeft  ; 
+               sold += product.soldQuantity ; 
+               totalStock += product.stock  ; 
+
+               if(product.quantityLeft == 0 ){ outOfStock++ ;}
+        }
+         let response = { productCategory : products.length  , inStock : inStock  , outOfStock , sold , totalStock}
+        console.log(response) ;
+        return res.json({success : true , message :"Successfully got dashboard data" , data : response })
+    }catch(e){
+        return res.json({
+            success : true , 
+            message : "Failed to get dashboard data" ,
+            error : e.message
         })
     }
 }

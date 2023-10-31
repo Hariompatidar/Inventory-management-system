@@ -76,8 +76,8 @@ function UsersTable() {
 
 
   return (
-    <div className=' w-full h-screen  my-auto sm:p-10 md:p-0 '>
-      <DataTable columns={columns} data={allProducts} pagination paginationPerPage="13" fixedHeader fixedHeaderScrollHeight='1000px' highlightOnHover responsive theme='dark' customStyles={customStyles} />
+    <div className='   my-auto sm:p-10 md:p-0 '>
+      <DataTable columns={columns} data={allProducts} pagination fixedHeader fixedHeaderScrollHeight='700px' highlightOnHover responsive theme='dark' customStyles={customStyles}  />
     </div>
   )
 }

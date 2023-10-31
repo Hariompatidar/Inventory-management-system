@@ -6,12 +6,13 @@ import { useNavigate } from "react-router-dom";
 function ProductCard({ product }) {
     const navigate = useNavigate();
     const inputRef = useRef();
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"))  ;
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
     const addToStockHandler = async (e) => {
 
 
         e.preventDefault();
-        if(inputRef.current.value === "0" ){ return toast.warn("Please enter a valid value")}
+        if (inputRef.current.value === "0") { return toast.warn("Please enter a valid value") }
         const token = localStorage.getItem("authToken");
 
         await axios({
@@ -34,8 +35,8 @@ function ProductCard({ product }) {
                 toast.warn(error.response.data.message);
             });
     };
-    const deleteHandler = async(e)=>{
-        e.preventDefault() ;
+    const deleteHandler = async (e) => {
+        e.preventDefault();
         const token = localStorage.getItem("authToken");
 
         await axios({
@@ -47,7 +48,7 @@ function ProductCard({ product }) {
             },
             data: {
                 id: product._id,
-               
+
             },
         })
             .then(() => {
@@ -59,9 +60,9 @@ function ProductCard({ product }) {
             });
     }
 
-    
+
     return (
-        <div className="  bg-[#0189FF]  text-black grid md:grid-cols-2 rounded-[20px] ">
+        <div className="   text-black grid md:grid-cols-2 rounded-[20px] ">
             <div className="overflow-hidden bg-cover bg-no-repeat flex items-center ">
                 <img
                     className="rounded-t-sm  w-[100%] object-cover p-10"
@@ -70,7 +71,7 @@ function ProductCard({ product }) {
                 />
             </div>
 
-            <div className="flex flex-col text-center md:text-left   md:pl-10 md:pt-10 gap-10 bg-black m-14 rounded-[20px] text-white p-10 ">
+            <div className="flex flex-col text-center md:text-left   md:pl-10 md:pt-10 gap-10 m-14 rounded-[20px] text-white p-10 ">
                 <p className="text-[2rem] font-bold mt-10">{product.name}</p>
                 <div className="flex flex-col gap-5 ">
                     <p className="text-lg text-white dark:text-neutral-200">
@@ -107,28 +108,28 @@ function ProductCard({ product }) {
                             className=" py-2 m-2   bg-[var(--textColor)] text-black outline-none border-none rounded-md p-2"
                         />
                         <div className="w-full">
-                        <button
-                            id="button"
-                            onClick={addToStockHandler}
-                        >
-                            Add
-                        </button>
+                            <button
+                                id="button"
+                                onClick={addToStockHandler}
+                            >
+                                Add
+                            </button>
                         </div>
-                       
+
                     </div>
-                      <hr className="-m-3"></hr>
-                    <button id="button" 
-                                onClick={()=>navigate('/sellstock')}
-                        >
-                            Sell
-                        </button>
-{ userInfo.role === 'Admin' ? 
-                        <button id="button" className="del" 
-                                onClick={deleteHandler}
+                    <hr className="-m-3"></hr>
+                    <button id="button"
+                        onClick={() => navigate('/sellstock')}
+                    >
+                        Sell
+                    </button>
+                    {userInfo.role === 'Admin' ?
+                        <button id="button" className="del"
+                            onClick={deleteHandler}
                         >
                             Delete
-                        </button>    : ""
-}                </div>
+                        </button> : ""
+                    }                </div>
             </div>
         </div>
     );

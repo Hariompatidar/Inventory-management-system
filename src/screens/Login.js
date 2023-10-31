@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify"
 import { useDispatch } from "react-redux";
@@ -7,7 +7,7 @@ import { setLogin } from "../redux/slices/loginSlice";
 
 
 function Login() {
-  const dispatch = useDispatch() ; 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const formRef = useRef();
 
@@ -30,7 +30,7 @@ function Login() {
       .then((response) => {
         toast.success("Login successfully");
         const userInfo = response?.data.user[0];
-        dispatch(setLogin(true)) ; 
+        dispatch(setLogin(true));
         localStorage.setItem("userInfo", JSON.stringify(userInfo));
         localStorage.setItem("authToken", response?.data?.token);
         navigate("/");
@@ -40,8 +40,8 @@ function Login() {
       });
   };
   return (
-    <section className="bg-[var(--background)]">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto sm:h-screen  ">
+    <section className="w-full bg-[var(--background)]">
+      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto sm:min-h-[88vh]  ">
         <div className="w-full bg-white rounded-lg shadow sm:max-w-md ">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
@@ -50,7 +50,7 @@ function Login() {
             <form
               ref={formRef}
               className="space-y-4 md:space-y-6"
-              
+
               onSubmit={submitHandler}
             >
               <div>
@@ -85,24 +85,15 @@ function Login() {
                   required=""
                 />
               </div>
-<div>
-              <button
-              id="button"
-                type="submit"
-                
-              >
-                Sign in
-              </button>
-              </div>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Don’t have an account yet?{" "}
-                <Link
-                  to="/register"
-                  className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+              <div>
+                <button
+                  id="button"
+                  type="submit"
+
                 >
-                  Sign up
-                </Link>
-              </p>
+                  Sign in
+                </button>
+              </div>
             </form>
           </div>
         </div>

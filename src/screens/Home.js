@@ -2,8 +2,8 @@ import React from "react";
 import Banner from "../images/Banner.png";
 function Home() {
   return (
-    <div className="h-full bg-[var(--bgColor)] ">
-      <div className=" h-[50vh] bg-transparent flex justify-center items-center">
+    <div className="min-h-[80vh]  grid md:grid-cols-2 ">
+      <div className=" h-full bg-transparent flex justify-center items-center">
         <img src={Banner} alt="Inventory Management" className="w-[80%] h-full object-contain"></img>
       </div>
       <div className="bg-transparent text-[var(--textColor)] p-10  text-center md:text-left md:py-[200px] ">
