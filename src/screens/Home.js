@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Banner from "../images/Banner.png";
 function Home() {
+  
   return (
     <div className="min-h-[80vh]  grid md:grid-cols-2 ">
-      <div className=" h-full bg-transparent flex justify-center items-center">
+      <div className=" h-full bg-transparent flex justify-center items-center gap-2">
         <img src={Banner} alt="Inventory Management" className="w-[80%] h-full object-contain"></img>
       </div>
       <div className="bg-transparent text-[var(--textColor)] p-10  text-center md:text-left md:py-[200px] ">
@@ -17,6 +18,7 @@ function Home() {
           healthy margins. An effective inventory management system exists to
           help you achieve this.
         </p>
+       
       </div>
     </div>
   );

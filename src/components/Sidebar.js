@@ -6,13 +6,13 @@ import { setLogin } from "../redux/slices/loginSlice";
 import { FaRightFromBracket, FaRightToBracket, FaRegChartBar, FaSkull, FaPlus, FaPerson } from "react-icons/fa6";
 
 
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 function Sidebar({ openSidebarToggle, OpenSidebar }) {
 
     const dispatch = useDispatch();
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    const [selectedMenu , setSelectedMenu] = useState("Home") ;
+    const [selectedMenu, setSelectedMenu] = useState("Home");
     return (
         <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive" : ""}>
             <div className='sidebar-title'>
@@ -26,98 +26,98 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
                 <li className='px-4'>
                     {userInfo && userInfo.role === "Admin" ?
                         (<div className="pt-6 bg-transparent text-white">
-                            <Link to='/'
-                                onClick={()=> setSelectedMenu("Home")}
-                                className={`flex  my-2 rounded-md p-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4   ${selectedMenu ==="Home" ? "bg-[rgb(1,137,255)] text-white": ""}      `}
+                            <NavLink activeClassName="active" to='/'
+                                onClick={() => setSelectedMenu("Home")}
+                                className={`flex  my-2 rounded-md p-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4        `}
                             >
                                 <FaHome />
                                 <span className={` origin-left duration-200`}>
                                     Home
                                 </span>
-                            </Link>
+                            </NavLink >
 
-                            <Link to='/dashboard'
-                                onClick ={()=>{setSelectedMenu("Dashboard")}}
-                                className={`flex  my-2 rounded-md p-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4 ${selectedMenu ==="Dashboard" ? "bg-[rgb(1,137,255)] text-white": ""}            `}
+                            <NavLink activeClassName="active" to='/dashboard'
+                                onClick={() => { setSelectedMenu("Dashboard") }}
+                                className="flex  my-2 rounded-md p-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4  "
                             >
                                 <FaRegChartBar />
                                 <span className={`origin-left duration-200`}>
                                     Dashboard
                                 </span>
-                            </Link>
+                            </NavLink >
 
-                            <Link to='/register'
-                                onClick={()=>setSelectedMenu("Register")}
-                                className={`flex  my-2 rounded-md p-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4        ${selectedMenu ==="Register" ? "bg-[rgb(1,137,255)] text-white": ""}       `}
+                            <NavLink activeClassName="active" to='/register'
+                                onClick={() => setSelectedMenu("Register")}
+                                className={`flex  my-2 rounded-md p-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4    `}
                             >
                                 <FaPerson />
                                 <span className={` origin-left duration-200`}>
                                     Register New User
                                 </span>
-                            </Link>
+                            </NavLink>
 
-                            <Link to='/stock'
-                                onClick={()=>setSelectedMenu("Stock")}
-                                className={`flex  my-2 rounded-md p-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4  ${selectedMenu ==="Stock" ? "bg-[rgb(1,137,255)] text-white": ""}  `}
+                            <NavLink activeClassName="active" to='/stock'
+                                onClick={() => setSelectedMenu("Stock")}
+                                className={`flex  my-2 rounded-md p-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4 `}
                             >
                                 <FaPlus />
                                 <span className={` origin-left duration-200`}>
                                     Create a Stock
                                 </span>
-                            </Link>
+                            </NavLink >
 
-                            <Link to='/allusers'
-                                onClick={()=>setSelectedMenu("All")}
-                                className={`flex  my-2 rounded-md p-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4    ${selectedMenu ==="All" ? "bg-[rgb(1,137,255)] text-white": ""}  `}
+                            <NavLink activeClassName="active" to='/allusers'
+                                onClick={() => setSelectedMenu("All")}
+                                className={`flex  my-2 rounded-md p-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4    `}
                             >
                                 <FaSkull />
                                 <span className={` origin-left duration-200`}>
                                     All Users
                                 </span>
-                            </Link>
+                            </NavLink >
 
 
                         </div>) : (userInfo ?
                             (<div className="pt-6 bg-transparent text-white">
-                                <Link to='/'
-                                    onClick={(()=>setSelectedMenu("Home"))}
-                                    className={`flex  my-2 rounded-md p-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4     ${selectedMenu ==="Home" ? "bg-[rgb(1,137,255)] text-white": ""}    `}
+                                <NavLink activeClassName="active" to='/'
+                                    onClick={(() => setSelectedMenu("Home"))}
+                                    className={`flex  my-2 rounded-md p-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4     `}
                                 >
                                     <FaHome />
                                     <span className={` origin-left duration-200`}>
                                         Home
                                     </span>
-                                </Link>
-                                <Link to='/dashboard'
-                                    onClick={()=>setSelectedMenu("Dashboard")}
+                                </NavLink >
+                                <NavLink activeClassName="active" to='/dashboard'
+                                    onClick={() => setSelectedMenu("Dashboard")}
                                     className={`flex  my-2 rounded-md p-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4      `}
                                 >
                                     <FaRegChartBar />
                                     <span className={` origin-left duration-200`}>
                                         Dashboard
                                     </span>
-                                </Link> </div>) : <div className='text-white'> <Link to='/'
-                                    onClick={()=>setSelectedMenu("Home")}
-                                    className={`flex  my-2 rounded-md p-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4   ${selectedMenu ==="Home" ? "bg-[rgb(1,137,255)] text-white": ""}      `}
+                                </NavLink> </div>) : <div className='text-white'> <NavLink activeClassName="active" to='/'
+                                    onClick={() => setSelectedMenu("Home")}
+                                    className={`flex  my-2 rounded-md p-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4  `}
                                 >
                                     <FaHome />
                                     <span className={` origin-left duration-200`}>
                                         Home
                                     </span>
-                                </Link></div>)}
+                                </NavLink ></div>)}
 
 
                 </li>
                 <li> <div className="px-4 text-white">
-                    <Link to={'/login'}
-                        onClick={() => {  dispatch(setLogin(false)); localStorage.removeItem('authToken'); localStorage.removeItem('userInfo') ;setSelectedMenu("Login") }}
-                        className={`flex my-2 mb-8 rounded-md py-2 px-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4    ${selectedMenu ==="Login" ? "bg-[rgb(1,137,255)] text-white": ""}     `}
+                    <NavLink activeClassName="active" to={'/login'}
+                        onClick={() => { dispatch(setLogin(false)); localStorage.removeItem('authToken'); localStorage.removeItem('userInfo'); setSelectedMenu("Login") }}
+                        className={`flex my-2 mb-8 rounded-md py-2 px-2 cursor-pointer hover:bg-[rgb(1,137,255)] hover:text-white  items-center gap-x-4   `}
                     >
                         {!userInfo ? <FaRightToBracket /> : <FaRightFromBracket />}
                         <span className={` origin-left duration-200`}>
                             {userInfo ? "Logout" : "Login"}
                         </span>
-                    </Link>
+                    </NavLink >
                 </div></li>
             </ul>
         </aside>

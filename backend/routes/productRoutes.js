@@ -9,6 +9,6 @@ router.post("/fetchdetails" , getProductDetails)
 
 router.post("/addstock" , auth ,  addStock)
 router.post("/deletestock" , auth , isAdmin  ,   deleteStock)
-router.get('/dashboard' , getDashboardData) ; 
+router.get('/dashboard' ,auth ,  getDashboardData) ; 
 module.exports = router ; 
 

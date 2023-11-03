@@ -13,6 +13,7 @@ import AllUsers from './screens/AllUsers'
 import Dashboard from './screens/Dashboard'
 import Header from './components/Header'
 import Sidebar from './components/Sidebar'
+import NotAuthrized from './screens/NotAuthrized'
 // import { loading, toggleLoading } from './redux/slices/loadingSlice'
 
 
@@ -20,11 +21,12 @@ function App() {
 
   const login = useSelector(isLoggedIn)
   const dispatch = useDispatch();
+  const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
+  const userInfo = JSON.parse(localStorage.getItem('userInfo')) ; 
 
   useEffect(() => { ; if (localStorage.getItem('authToken')) { dispatch(setLogin(true)) } })
 
 
-  const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
 
   const OpenSidebar = () => {
     setOpenSidebarToggle(!openSidebarToggle)
@@ -41,12 +43,12 @@ function App() {
           <Route exact path='/' element={login ? <Inventory /> : <Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
-          <Route path='/info' element={<ProductInfo />} />
-          <Route path='/stock' element={<CreateStock />} />
-          <Route path='/sellstock' element={<SellStock />} />
-          <Route path='/allusers' element={<AllUsers />} />
-          <Route path='/dashboard' element={<Dashboard />} />
-
+          <Route path='/info' element={  userInfo ? <ProductInfo /> : <NotAuthrized />} />
+          <Route path='/stock' element={ userInfo?.role === "Admin" ? <CreateStock /> : <NotAuthrized /> } />
+          <Route path='/sellstock' element={ userInfo ? <SellStock /> : <NotAuthrized />} />
+          <Route path='/allusers' element={ userInfo?.role === "Admin" ?  <AllUsers /> : <NotAuthrized />} />
+          <Route path='/dashboard' element={ userInfo ? <Dashboard /> : <NotAuthrized />} />
+    
 
         </Routes>
       </div>
